@@ -1,0 +1,20 @@
+select sum(table.gross_len_split_stack) from
+(SELECT 
+sif.session_fk,
+sif.product_fk,
+sif.rlv_sos_sc,
+sif.facings, 
+sif.facings_ign_stack,
+sif.gross_len_add_stack,
+sif.gross_len_ign_stack, 
+sif.gross_len_split_stack,
+sif.linear_sos_calc,  
+sif.facing_sos_calc  
+FROM `trax-cpg-dwh-int.prod.scene_item_fact` sif
+JOIN  `trax-cpg-dwh-int.prod.product_dim` product_dim on sif.product_fk=product_dim.product_pk
+WHERE 
+sif.project_name='ccphl'
+and sif.visit_date between '2021-01-01' and '2021-01-31' 
+and product_dim.project_name = 'ccphl' 
+and product_dim.product_type in ('SKU','Other','Empty') 
+and product_dim.product_uid  <> '') table
