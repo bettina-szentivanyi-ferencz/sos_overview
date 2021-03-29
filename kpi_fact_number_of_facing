@@ -1,0 +1,4 @@
+SELECT sum(kpi_fact.numerator_result) FROM `trax-cpg-dwh-int.prod.kpi_fact` kpi_fact
+JOIN  `trax-cpg-dwh-int.prod.product_dim` product_dim on kpi_fact.numerator_id=product_dim.product_id
+WHERE kpi_fact.project_name='ccphl'and kpi_fact.visit_date between '2021-01-01' and '2021-01-31' and product_dim.project_name = 'diageogr' and product_dim.product_type in ('SKU','Other','Empty') and product_dim.product_uid  <> ''
+AND kpi_fact.kpi_name in ('FACINGS_SOS_SKU_OUT_OF_CATEGORY_IN_WHOLE_STORE') 
