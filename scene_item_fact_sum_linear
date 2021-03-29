@@ -16,5 +16,6 @@ WHERE
 sif.project_name='ccphl'
 and sif.visit_date between '2021-01-01' and '2021-01-31' 
 and product_dim.project_name = 'ccphl' 
+and product_dim.category_name='Sparkling'
 and product_dim.product_type in ('SKU','Other','Empty') 
 and product_dim.product_uid  <> '') table
