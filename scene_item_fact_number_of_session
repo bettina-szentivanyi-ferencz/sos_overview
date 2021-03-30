@@ -1,0 +1,27 @@
+
+select count(distinct table.session_fk) from
+(SELECT 
+sif.session_fk,
+sif.product_fk,
+sif.rlv_sos_sc,
+sif.facings, 
+sif.facings_ign_stack,
+sif.gross_len_add_stack,
+sif.gross_len_ign_stack, 
+sif.gross_len_split_stack,
+sif.linear_sos_calc,  
+sif.facing_sos_calc  
+FROM `trax-cpg-dwh-int.prod.scene_item_fact` sif
+JOIN  `trax-cpg-dwh-int.prod.product_dim` product_dim on sif.product_fk=product_dim.product_pk
+JOIN  `trax-cpg-dwh-int.prod.store_dim` store_dim on sif.store_fk=store_dim.store_pk
+WHERE 
+sif.project_name='ccphl'
+and sif.visit_date between '2021-01-01' and '2021-01-31' 
+and product_dim.project_name = 'ccphl' 
+and product_dim.category_name='Sparkling'
+and product_dim.brand_name='Juicy Lemon'
+and store_dim.region_name='GMA'
+and store_dim.retailer_name='7-ELEVEN'
+and store_dim.store_type_name='Convenience Store'
+and product_dim.product_type in ('SKU','Other','Empty') 
+and product_dim.product_uid  <> '') table
